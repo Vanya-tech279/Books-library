@@ -1,34 +1,49 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { addBook } from "../features/books/booksSlice";
 import { useNavigate } from "react-router-dom";
 
 export default function AddBook() {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
-    id: Date.now(),
     title: "",
     author: "",
-    category: "",
-    description: "",
-    rating: "",
+    category: ""
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!form.title || !form.author) return alert("Fill all fields");
+    const newBook = {
+      id: Date.now(),
+      ...form
+    };
 
-    dispatch(addBook(form));
+    await fetch("http://localhost:5000/books", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(newBook)
+    });
+
     navigate("/books");
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <input placeholder="Title" onChange={(e) => setForm({...form, title: e.target.value})} />
-      <input placeholder="Author" onChange={(e) => setForm({...form, author: e.target.value})} />
+      <input
+        placeholder="Title"
+        onChange={(e) => setForm({ ...form, title: e.target.value })}
+      />
+      <input
+        placeholder="Author"
+        onChange={(e) => setForm({ ...form, author: e.target.value })}
+      />
+      <input
+        placeholder="Category"
+        onChange={(e) => setForm({ ...form, category: e.target.value })}
+      />
+
       <button type="submit">Add Book</button>
     </form>
   );

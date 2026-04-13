@@ -5,11 +5,13 @@ import BrowseBooks from "./pages/BrowseBooks";
 import BookDetails from "./pages/BookDetails";
 import AddBook from "./pages/AddBook";
 import NotFound from "./pages/NotFound";
+import "./styles.css";
 
 export default function App() {
   return (
     <BrowserRouter>
       <Navbar />
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/books" element={<BrowseBooks />} />

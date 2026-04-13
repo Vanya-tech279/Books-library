@@ -1,37 +1,35 @@
-import { useParams, Link } from "react-router-dom";
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
 export default function BrowseBooks() {
-  const { category } = useParams();
-  const books = useSelector((state) => state.books);
+  const [books, setBooks] = useState([]);
 
-  const [search, setSearch] = useState("");
+  useEffect(() => {
+    fetch("http://localhost:5000/books")
+      .then((res) => res.json())
+      .then((data) => setBooks(data));
+  }, []);
 
-  const filtered = books.filter((b) => {
-    return (
-      (!category || b.category === category) &&
-      (b.title.toLowerCase().includes(search.toLowerCase()) ||
-        b.author.toLowerCase().includes(search.toLowerCase()))
-    );
-  });
+ return (
+  <div className="browse-container">
+  <h2 className="page-title">Browse Books</h2>
 
-  return (
-    <div>
-      <h2>Browse Books</h2>
-
-      <input
-        placeholder="Search..."
-        onChange={(e) => setSearch(e.target.value)}
-      />
-
-      {filtered.map((book) => (
-        <div key={book.id}>
-          <h3>{book.title}</h3>
-          <p>{book.author}</p>
-          <Link to={`/book/${book.id}`}>View Details</Link>
+  <div className="books-grid">
+    {books.map((book) => (
+      <div className="book-card" key={book.id}>
+        
+        <div className="img-wrapper">
+          <img src={book.image} alt={book.title} />
         </div>
-      ))}
-    </div>
-  );
+
+        <div className="book-info">
+          <h3>{book.title}</h3>
+          <p>Author: {book.author}</p>
+          <p className="category">{book.category}</p>
+        </div>
+
+      </div>
+    ))}
+  </div>
+</div>
+);
 }

@@ -1,13 +1,28 @@
-import { createSlice } from "@reduxjs/toolkit";
-import booksData from "../../data/books";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+
+// fetch books (if using API)
+export const fetchBooks = createAsyncThunk(
+  "books/fetchBooks",
+  async () => {
+    const res = await fetch("http://localhost:5000/books");
+    return res.json();
+  }
+);
 
 const booksSlice = createSlice({
   name: "books",
-  initialState: booksData,
+  initialState: {
+    items: [],
+  },
   reducers: {
     addBook: (state, action) => {
-      state.unshift(action.payload);
+      state.items.unshift(action.payload);
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchBooks.fulfilled, (state, action) => {
+      state.items = action.payload;
+    });
   },
 });
 
