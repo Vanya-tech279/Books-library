@@ -1,3 +1,4 @@
+{/***** BHOME PAGE******/ }
 import { Link } from "react-router-dom";
 
 export default function Home() {
@@ -15,7 +16,7 @@ export default function Home() {
 
       {/* HERO SECTION */}
       <div className="hero">
-        <h1>📚 Welcome to Book Library</h1>
+        <h1> Welcome to Book Library</h1>
         <p>Explore, Read & Discover Amazing Books</p>
 
         <Link to="/books" className="hero-btn">
@@ -34,7 +35,7 @@ export default function Home() {
         ))}
       </div>
 
-      {/* POPULAR SECTION (simple preview) */}
+      {/* POPULAR SECTION*/}
       <h2 className="section-title">Popular Picks</h2>
 
       <div className="popular-preview">

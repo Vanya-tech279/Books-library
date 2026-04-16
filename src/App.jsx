@@ -12,14 +12,16 @@ export default function App() {
     <BrowserRouter>
       <Navbar />
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/books" element={<BrowseBooks />} />
-        <Route path="/books/:category" element={<BrowseBooks />} />
-        <Route path="/book/:id" element={<BookDetails />} />
-        <Route path="/add" element={<AddBook />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <div className="page"> {/*spacing wrapper */}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/books" element={<BrowseBooks />} />
+          <Route path="/books/:category" element={<BrowseBooks />} />
+          <Route path="/book/:id" element={<BookDetails />} />
+          <Route path="/add" element={<AddBook />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </div>
     </BrowserRouter>
   );
 }

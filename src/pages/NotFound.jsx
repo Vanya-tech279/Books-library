@@ -1,10 +1,12 @@
+{/***** Page not Found******/ }
+
 import { Link, useLocation } from "react-router-dom";
 
 export default function NotFound() {
   const location = useLocation();
 
   return (
-    <div>
+    <div className="Error">
       <h1>404 Page Not Found</h1>
       <p>{location.pathname}</p>
 
